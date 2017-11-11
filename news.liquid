@@ -1,0 +1,22 @@
+extends: site.liquid
+title: News
+route: news
+path: /news
+---
+
+<h2>News</h2>
+
+{% assign years = "2017" | split: ", " %}
+{% for year in years %}
+
+<h3>{{year}}</h3>
+
+<ul>
+  {% for post in posts %}
+    {% assign postyear = post.date | date: "%Y" %}
+    {% if postyear == year %}
+      <li>{{post.date | date: "%d %b"}}: <a href="/{{post.path}}">{{post.title}}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
+{%endfor%}

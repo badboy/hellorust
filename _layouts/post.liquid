@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ include "_layouts/_head.liquid" }}
+  </head>
+
+  <body class="container">
+    {{ include "_layouts/_menu.liquid" }}
+
+    <div class="row code-row">
+      <div class="col-md-8">
+          <article>
+              <h1>{{ title }}</h1>
+              <time pubdate="pubdate">{{ date | date: "%b %d, %Y" }}</time>
+              - {{ author }}
+
+
+              {{ content }}
+          </article>
+      </div>
+    </div>
+
+    {{ include "_layouts/_footer.liquid" }}
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ include "_layouts/_head.liquid" }}
+  </head>
+
+  <body class="container">
+    {{ include "_layouts/_menu.liquid" }}
+
+    <div class="row code-row">
+      <div class="col-md-8">
+        {{ content }}
+      </div>
+    </div>
+
+    {{ include "_layouts/_footer.liquid" }}
+  </body>
+</html>
