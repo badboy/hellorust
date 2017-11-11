@@ -14,11 +14,11 @@ after_success: |
   cobalt import &&
   git config user.name "Jan-Erik Rediger" &&
   git config user.email "janerik@fnordig.de" &&
-  git push -fq https://${GH_TOKEN}@github.com/badboy/hellorust.git gh-pages
+  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
 
 env:
   global:
-    secure: TEbghCLTGxWTyZgySmxMtSEx0jjnIG05n1q9U77tWwwlSgkRPYT0WCVDPo3AKPbj8j/f5IR9eh2oAdvcjBiO+S4+vtArs3f/ubaMJgVfP+9+/JLYpNf//mgm8vqYxb3D7mzbbFk2NKmUZRgfblhEWBGGIsBh4Z7eZ2pw1ui/6DEEKqsgwNNRgKEpdSf5MjniBVHuznApngRq93A5qp+DodIiIAPycG9+O4mAgFJ4Aw7tZPVZnlHCfcPrynQjKd9pcbNJpOLvwAvMEpSSrmSjqOLhN/CsQdogShJM4inmATb+i0mMmUVnimmzfF6O6CSROVd+yPK1nvQnk+YxkrJ6/rJ7mRxKsUiorvKeLDrzv+TDLNBCLAPFVmoAXKD4o2JnBbPJnFdY/l33AIAqSRDsAmi33dggG9lihkJR2GvLA91SgKJ3++eoyJe7Apkz8RQbp6Oe3tpALGOCD7GBRNNHtmPKKIPaz/IPhFP5WzTgf3hotJLORLbH8TI06wAaCKQGuItWwnyql4pba+tCxqe8dfELopcjDIbKpiw8+W/xr8tTY6UEJadBEGwGPEx8K8wc7UoEMqFal8uhH76mqtJs9Am0XXtfTsijjtFGBKzuDP47N/PHlOU6JHS5AMVoCchLIRNaBjD+305JYzCNDFosYzhOyqnAoJWIRE5MCHmx10M=
+    secure: ecmPWXagPUFOYiQiBp2CIRftqXyKZbC1XsaiXLMCYx2YsUbigqnhdR2XwJ8+Kx5QN5sDcLOMf0u9zrnkLoEjGcnYDT6phiB6V/s9mcgxnk5hKeJC4DFV7qEHmYU4tYc2aeGGvMWIguMOp9a7KI0JPQVr3zRP8/c5WBnOsJtE2lSdm4Lf8uG3Lwib4dKvr9XHGm2+EMbo4t4vgVqa/rBvkr3Irbj5uacTy8+eQHoh4NM4Zqf/iWmimDhMXb5b/6AAHH7U+jp7KEoS40WVfQN/lNRoSflFwdM3+V5zoVOy6cd/1vrV+OCw22I/Cc/soK3sfkvh3KCUqAcoFm6Q/8REJ+SEihKQCOVpxECnTO7m2POiB5nEKOFErsFcO+uq/NukNZK39jSMq/dRVIjPqhxOAzXUDjcN1ZSwszbmiCRYiLKqnj8RMcc+BeyUFw5X/FWSFqQV9Wf8iP8pdOgtE6IeS+8YG6V8B+ampjRAoFjdW7S97nmxaax430rhTGPuXSQ647W5CrFc8AYYNk3K8kwrp+0zQ0efIW2eN0IH1cGa9EkgcnqvkOghgDjuP6EIEgxZbKlhC8Rrig95c4Mi4dxHS3/Q4Gml1oM0viDHDmo27xQBHEuLpitCIzZ7GptB5auRXhq31CP1R6AJRAjo/xWN+R2sfxm3cEWnM6d2a65LDZk=
 
 notifications:
   email: false
