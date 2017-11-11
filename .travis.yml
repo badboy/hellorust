@@ -1,0 +1,21 @@
+sudo: false
+language: rust
+
+before_script:
+  - cargo install -f cobalt-bin
+  - export PATH="$PATH:/home/travis/.cargo/bin"
+
+script:
+  - cobalt build
+
+after_success: |
+  [ $TRAVIS_BRANCH = master ] &&
+  [ $TRAVIS_PULL_REQUEST = false ] &&
+  cobalt import &&
+  git config user.name "Jan-Erik Rediger" &&
+  git config user.email "janerik@fnordig.de" &&
+  git push -fq https://${GH_TOKEN}@github.com/badboy/hellorust.git gh-pages
+
+env:
+  global:
+    secure: TEbghCLTGxWTyZgySmxMtSEx0jjnIG05n1q9U77tWwwlSgkRPYT0WCVDPo3AKPbj8j/f5IR9eh2oAdvcjBiO+S4+vtArs3f/ubaMJgVfP+9+/JLYpNf//mgm8vqYxb3D7mzbbFk2NKmUZRgfblhEWBGGIsBh4Z7eZ2pw1ui/6DEEKqsgwNNRgKEpdSf5MjniBVHuznApngRq93A5qp+DodIiIAPycG9+O4mAgFJ4Aw7tZPVZnlHCfcPrynQjKd9pcbNJpOLvwAvMEpSSrmSjqOLhN/CsQdogShJM4inmATb+i0mMmUVnimmzfF6O6CSROVd+yPK1nvQnk+YxkrJ6/rJ7mRxKsUiorvKeLDrzv+TDLNBCLAPFVmoAXKD4o2JnBbPJnFdY/l33AIAqSRDsAmi33dggG9lihkJR2GvLA91SgKJ3++eoyJe7Apkz8RQbp6Oe3tpALGOCD7GBRNNHtmPKKIPaz/IPhFP5WzTgf3hotJLORLbH8TI06wAaCKQGuItWwnyql4pba+tCxqe8dfELopcjDIbKpiw8+W/xr8tTY6UEJadBEGwGPEx8K8wc7UoEMqFal8uhH76mqtJs9Am0XXtfTsijjtFGBKzuDP47N/PHlOU6JHS5AMVoCchLIRNaBjD+305JYzCNDFosYzhOyqnAoJWIRE5MCHmx10M=
