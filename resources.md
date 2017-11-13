@@ -7,7 +7,7 @@ path: /resources
 ## Resources
 
 A collection of various resources and blog posts explaining Rust & WebAssembly, available tools or showing demo applications.
-You have somethings that's missing from this list? [Tell us about it!]()
+You have somethings that's missing from this list? [Tell us about it!](https://github.com/badboy/hellorust/issues/new)
 
 ---
 

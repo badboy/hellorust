@@ -7,7 +7,7 @@ path: /talks
 ## Talks & Workshops
 
 A collection of talks and workshops about Rust, WebAssembly and connected topics.  
-You have a talk that's missing from this list? [Tell us about it!]()
+You have a talk that's missing from this list? [Tell us about it!](https://github.com/badboy/hellorust/issues/new)
 
 ---
 
