@@ -30,3 +30,5 @@ You have somethings that's missing from this list? [Tell us about it!]()
 
 * [#36317: Initial webassembly support via LLVM](https://github.com/rust-lang/rust/issues/36317)  
    Tracking issue for getting WASM support into rustc
+* [#45905: Add a new wasm32-unknown-unknown target](https://github.com/rust-lang/rust/pull/45905)  
+   A new Rust compile target for WebAssembly without Emscripten
