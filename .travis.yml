@@ -2,7 +2,7 @@ sudo: false
 language: rust
 
 before_script:
-  - cargo install -f cobalt-bin
+  - curl -LSfs https://japaric.github.io/trust/install.sh | sh -s -- --git cobalt-org/cobalt.rs --crate cobalt --force --target x86_64-unknown-linux-gnu
   - export PATH="$PATH:/home/travis/.cargo/bin"
 
 script:
