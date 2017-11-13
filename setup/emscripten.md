@@ -1,7 +1,6 @@
 extends: site.liquid
-title: Setup
-route: setup
-path: /setup
+title: Setup - Emscripten
+path: /setup/emscripten
 ---
 
 ## Setup
