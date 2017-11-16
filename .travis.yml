@@ -8,13 +8,13 @@ before_script:
 script:
   - cobalt build
 
-after_success: |
-  [ $TRAVIS_BRANCH = master ] &&
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-  cobalt import &&
-  git config user.name "Jan-Erik Rediger" &&
-  git config user.email "janerik@fnordig.de" &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GH_TOKEN
+  local_dir: build
+  on:
+    branch: master
 
 env:
   global:
