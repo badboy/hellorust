@@ -27,6 +27,17 @@ Material:
 
 ---
 
+### Interaction with real-world JavaScript from compiled Rust
+
+**by Ingvar Stepanyan** at
+[RustFest Kyiv 2017](http://2017.rustfest.eu/talks/#interaction-with-real-world-javascript-from-compiled-rust)
+
+Material:
+
+* [Video](https://www.youtube.com/watch?v=zxIbTfsOJZE)
+
+---
+
 ### WebAssembly for the Rest of Us
 
 **by Jan-Erik Rediger** at
