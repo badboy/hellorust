@@ -14,8 +14,24 @@ You have a talk that's missing from this list? [Tell us about it!](https://githu
 ### WebAssembly for the Rest of Us
 
 **by Jan-Erik Rediger** at
+[JS Kongress Munich](https://2017.js-kongress.de/sessions/webassembly-rest-us/) &
+[Mozilla Dev Roadshow (Munich)](https://www.meetup.com/MuniCSS-finest/events/243276897/)
+
+When:
+2017-11-14, 2017-11-15
+
+Material:
+
+* [Slides](https://fnordig.de/talks/2017/jskongress/)
+* [Video](https://www.youtube.com/watch?v=SGkZbxIGDNE)
+
+---
+
+### WebAssembly for the Rest of Us
+
+**by Jan-Erik Rediger** at
 [Codemotion Amsterdam](http://amsterdam2017.codemotionworld.com/) &
-[Mozilla Dev Roadshow](https://beyondtellerrand.com/events/duesseldorf-2017/side-events/mozilla-roadshow)
+[Mozilla Dev Roadshow (Düsseldorf)](https://beyondtellerrand.com/events/duesseldorf-2017/side-events/mozilla-roadshow)
 
 When:
 2017-05-16, 2017-05-17
