@@ -1,0 +1,141 @@
+extends: site.liquid
+title: "Demo: Calculate the SHA1 hash of input"
+path: /demos/sha1
+---
+
+<h2>Calculate the SHA1 hash of input</h2>
+
+<p>
+  Type some text into the field and the SHA1 hash will be calculated.
+</p>
+
+<div class="form">
+  <input type="text" name="input" id="input" value="Type here">
+</div>
+<h3>Digest:</h3>
+<span id="output">Digest will be shown here</span>
+
+
+<script src="/demos/bundle.js"></script>
+<script>
+  window.Module = {}
+  var Sha1 = {
+    digest: function(str) {
+      let buf = newString(Module, str);
+      let outptr = Module.digest(buf);
+      let result = copyCStr(Module, outptr);
+      Module.dealloc(buf);
+      Module.dealloc(outptr);
+      return result;
+    }
+  }
+
+  fetchAndInstantiate("./sha1-digest.wasm", {})
+    .then(mod => {
+      Module.alloc   = mod.exports.alloc;
+      Module.dealloc = mod.exports.dealloc;
+      Module.digest  = mod.exports.digest;
+      Module.memory  = new Uint8Array(mod.exports.memory.buffer)
+
+      var input = document.getElementById("input");
+      var output = document.getElementById("output");
+      output.innerText = Sha1.digest(input.value);
+
+      input.addEventListener("keyup", function(e) {
+        output.innerText = Sha1.digest(input.value);
+      });
+    });
+</script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  The Rust code for this example is short and exposes a C-like API on top of the
+  <a href="https://crates.io/crates/sha1">sha1 crate</a>.
+</p>
+<p>
+  <a href="./sha1-digest.rs">Download sha1-digest.rs</a>x
+  <br />
+  <a href="./sha1-digest.wat">Download sha1-digest.wat (WebAssembly text format)</a>
+</p>
+
+<pre><code class="rust">extern crate sha1;
+
+use std::mem;
+use std::ffi::{CString, CStr};
+use std::os::raw::{c_char, c_void};
+
+use sha1::Sha1;
+
+// We need to provide an (empty) main function,
+// as the target currently is compiled as a binary.
+fn main() {}
+
+// In order to work with the memory we expose (de)allocation methods
+#[no_mangle]
+pub extern "C" fn alloc(size: usize) -> *mut c_void {
+    let mut buf = Vec::with_capacity(size);
+    let ptr = buf.as_mut_ptr();
+    mem::forget(buf);
+    return ptr as *mut c_void;
+}
+
+#[no_mangle]
+pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
+    unsafe  {
+        let _buf = Vec::from_raw_parts(ptr, 0, cap);
+    }
+}
+
+// The JavaScript side passes a pointer to a C-like string that's already placed into memory.
+// On the Rust side we turn this into a CStr, extract the bytes, pass it through the crate
+// and then turn it back into an memory-allocated C-like string.
+// A pointer to this data is returned.
+#[no_mangle]
+pub extern "C" fn digest(data: *mut c_char) -> *mut c_char {
+    unsafe {
+        let data = CStr::from_ptr(data);
+
+        let mut m = Sha1::new();
+        m.update(data.to_bytes());
+        let dgst = m.digest().to_string();
+        let s = CString::new(dgst).unwrap();
+        s.into_raw()
+    }
+}
+</code></pre>
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported functions and fields, including the allocation and memory.
+  To pass a JavaScript string, we first allocate some space in the exported memory buffer and copy over the string.
+  On return of the <code>digest</code> function, we copy back the new string from the memory buffer.
+</p>
+
+<pre><code class="javascript">var Module = {}
+var Sha1 = {
+  digest: function(str) {
+    let buf = newString(Module, str);
+    let outptr = Module.digest(buf);
+    let result = copyCStr(Module, outptr);
+    Module.dealloc(buf);
+    Module.dealloc(outptr);
+    return result;
+  }
+}
+
+fetchAndInstantiate("./sha1-digest.wasm", {})
+.then(mod => {
+  Module.alloc   = mod.exports.alloc;
+  Module.dealloc = mod.exports.dealloc;
+  Module.digest  = mod.exports.digest;
+  Module.memory  = new Uint8Array(mod.exports.memory.buffer)
+
+  var input = document.getElementById("input");
+  var output = document.getElementById("output");
+  input.addEventListener("keyup", function(e) {
+    output.innerText = Sha1.digest(input.value);
+  });
+});
+</code></pre>

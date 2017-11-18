@@ -606,3 +606,14 @@ ul.laundry-list {
     text-align: center;
     padding-top: 50px;
 }
+
+.form input {
+  font-size: 3em;
+  width: 100%;
+}
+
+#output {
+  font-size: 2.4em;
+  width: 100%;
+  word-wrap: break-word;
+}
