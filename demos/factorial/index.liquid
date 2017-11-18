@@ -1,0 +1,120 @@
+extends: site.liquid
+title: "Demo: Factorial in WebAssembly"
+path: /demos/factorial
+---
+
+<h2>Factorial in WebAssembly</h2>
+
+<p>
+  Type some text into the field and the SHA1 hash will be calculated.
+</p>
+
+<div class="form">
+  <input type="text" name="input" id="input" value="5">
+</div>
+<br />
+<span id="number-out">fact(5) = </span>
+<span id="output">1</span>
+
+
+<script src="/demos/bundle.js"></script>
+<script>
+  window.Module = {}
+
+  fetchAndInstantiate("./factorial.wasm", {})
+    .then(mod => {
+      Module.fact  = mod.exports.fact;
+
+      var input = document.getElementById("input");
+      var output = document.getElementById("output");
+      var number_out = document.getElementById("number-out");
+      output.innerText = Module.fact(input.value|0);
+
+      input.addEventListener("keyup", function(e) {
+        let value = input.value | 0;
+        number_out.innerText = "fact("+value+") = ";
+        if (value < 0) {
+            output.innerText = "[Value too small.]"
+            return;
+        }
+        if (value > 19) {
+            output.innerText = "[Value too big.]"
+            return;
+        }
+        output.innerText = Module.fact(value);
+      });
+    });
+</script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  The Rust code implements nothing more than a simple <code>fact</code> function.
+</p>
+<p>
+  <a href="./factorial.rs">Download factorial.rs</a>
+  <br />
+  <a href="./factorial.wat">Download factorial.wat (WebAssembly text format)</a>
+</p>
+
+<pre><code class="rust">fn main() {}
+
+#[no_mangle]
+pub fn fact(mut n: i32) -> i32 {
+    let mut result = 1;
+    while n > 0 {
+        result = result * n;
+        n = n - 1;
+    }
+    result
+}
+</code></pre>
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported function.
+  All we need is to pass an integer and get the result.
+</p>
+
+<pre><code class="javascript">fetchAndInstantiate("./factorial.wasm", {})
+.then(mod => {
+  let fact  = mod.exports.fact;
+  console.log(fact(5));
+})
+</code></pre>
+
+<p>
+  The compiled WebAssembly code is reasonably short. Try to understand what's happening!
+</p>
+
+<pre><code class="lisp">(func $fact (param i32) (result i32)
+  (local i32 i32)
+  i32.const 1
+  set_local 2
+  block  ;; label = @1
+    get_local 0
+    i32.const 1
+    i32.lt_s
+    br_if 0 (;@1;)
+    i32.const 1
+    set_local 2
+    loop  ;; label = @2
+      get_local 0
+      get_local 2
+      i32.mul
+      set_local 2
+      get_local 0
+      i32.const 1
+      i32.gt_s
+      set_local 1
+      get_local 0
+      i32.const -1
+      i32.add
+      set_local 0
+      get_local 1
+      br_if 0 (;@2;)
+    end
+  end
+  get_local 2)
+</code></pre>

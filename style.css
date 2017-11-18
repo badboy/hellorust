@@ -617,3 +617,6 @@ ul.laundry-list {
   width: 100%;
   word-wrap: break-word;
 }
+#number-out {
+  font-size: 2.4em;
+}
