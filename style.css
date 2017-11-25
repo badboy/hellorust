@@ -620,3 +620,12 @@ ul.laundry-list {
 #number-out {
   font-size: 2.4em;
 }
+
+aside {
+    border: 1px solid black;
+    border-width: 1px 1px 1px 5px;
+    padding: 5px;
+}
+aside p {
+    margin: 0.7em;
+}

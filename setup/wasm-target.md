@@ -9,9 +9,18 @@ path: /setup/wasm-target
 
 Clone Alex' fork of Rust including the new `wasm32-unknown-unknown` target:
 
+```text
+git clone https://github.com/rust-lang/rust
 ```
-git clone --branch add-wasm-target https://github.com/alexcrichton/rust
-```
+
+<aside>
+<p>
+Since 20th November, 2017 the
+<a href="https://github.com/rust-lang/rust/pull/45905">Pull Request 45905: "std: Add a new wasm32-unknown-unknown target"</a>
+ is merged into Rust master.
+It is contained in Nightly builds, but the LLVM backend is not enabled (as of 2017-11-25).
+</p>
+</aside>
 
 Configure and build the compiler (**Caution: this takes quite some time**):
 
