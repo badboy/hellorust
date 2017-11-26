@@ -47,5 +47,7 @@ function newString(module, str) {
     module.memory[ptr+i] = string_buffer[i]
   }
 
+  module.memory[ptr+len] = 0;
+
   return ptr
 }
