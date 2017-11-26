@@ -5,35 +5,40 @@ path: /setup/wasm-target
 
 ## Setup
 
-**Caution: This stuff is not merged into Rust yet and might change at any time**
-
-Clone Alex' fork of Rust including the new `wasm32-unknown-unknown` target:
-
-```text
-git clone https://github.com/rust-lang/rust
-```
-
 <aside>
 <p>
 Since 20th November, 2017 the
 <a href="https://github.com/rust-lang/rust/pull/45905">Pull Request 45905: "std: Add a new wasm32-unknown-unknown target"</a>
  is merged into Rust master.
-It is contained in Nightly builds, but the LLVM backend is not enabled (as of 2017-11-25).
+It is contained in Nightly builds, but the LLVM backend is not enabled.
 </p>
 </aside>
 
-Configure and build the compiler (**Caution: this takes quite some time**):
+<aside>
+<p>
+Since 25th November, 2017 the
+<a href="https://github.com/rust-lang/rust/pull/46115">Pull Request 46115: "rustbuild: Enable WebAssembly backend by default"</a>
+ is merged into Rust master.
+With the Nightly build from that night, the <code>wasm32-unknown-unknown</code> target is natively available.
+</p>
+</aside>
+
+Install the latest nightly (2017-11-25 or later):
 
 ```
-cd rust
-./configure --target=wasm32-unknown-unknown --set llvm.experimental-targets=WebAssembly
-./x.py build
+rustup update
+```
+
+Install the required component:
+
+```
+rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
 Compile your code to WebAssembly:
 
 ```
-./build/x86_64-unknown-linux-gnu/stage2/bin/rustc -O --target wasm32-unknown-unknown hello.rs
+rustc +nightly --target wasm32-unknown-unknown -O hello.rs
 ```
 
 You will end up with a `hello.wasm`. It will be quite big. To reduce size, first install `wasm-gc`:
