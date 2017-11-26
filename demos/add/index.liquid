@@ -1,0 +1,89 @@
+extends: site.liquid
+title: "Demo: Minimal add function with no_std"
+path: /demos/add
+---
+
+<h2>Minimal Rust &amp; WebAssembly example</h2>
+
+<p>
+  Click the button to run the WebAssembly code.
+</p>
+
+<p>
+  Based on 
+  <a href="https://gist.github.com/steveklabnik/d86491646b9e3e420f8806a286ec8e92">an example</a>
+  by <a href="https://twitter.com/steveklabnik">Steve Klabnik</a>.
+</p>
+
+<button id="run-wasm">Run</button>
+
+<script>
+    var button = document.getElementById("run-wasm");
+    button.addEventListener("click", function(e) {
+        fetch('small-add.wasm')
+        .then(response => response.arrayBuffer())
+        .then(bytes => WebAssembly.instantiate(bytes, {}))
+        .then(results => {
+            alert(results.instance.exports.add_one(41));
+        });
+    });
+</script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  <a href="./add.rs">Download add.rs</a>
+  <br />
+  <a href="./small-add.wat">Download small-add.wat (WebAssembly text format)</a>
+</p>
+
+<pre><code class="rust">#[no_mangle]
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+</code></pre>
+
+<p>
+  Compile this code as follows:
+</p>
+
+<pre><code>rustup update
+rustup component add wasm32-unknown-unknown --toolchain nightly
+rustc +nightly --target wasm32-unknown-unknown -O add.rs --crate-type=cdylib</code></pre>
+
+<p>Reduce the size by removing unused stuff from the module:</p>
+
+<pre><code>cargo install --git https://github.com/alexcrichton/wasm-gc 
+wasm-gc add.wasm small-add.wasm</code></pre>
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported function.
+</p>
+
+<pre><code class="javascript">fetch('small-add.wasm')
+.then(response => response.arrayBuffer())
+.then(bytes => WebAssembly.instantiate(bytes, {}))
+.then(results => {
+    alert(results.instance.exports.add_one(41));
+});</code></pre>
+
+<p>
+The readable Webassembly looks like this:
+</p>
+
+<pre><code class="webassembly">(module
+  (type (;0;) (func (param i32) (result i32)))
+  (type (;1;) (func))
+  (func (;0;) (type 0) (param i32) (result i32)
+    get_local 0
+    i32.const 1
+    i32.add)
+  (func (;1;) (type 1))
+  (table (;0;) 0 anyfunc)
+  (memory (;0;) 17)
+  (export "memory" (memory 0))
+  (export "add_one" (func 0))
+  (export "rust_eh_personality" (func 1))
+  (data (i32.const 4) "\10\00\10\00"))</code></pre>
