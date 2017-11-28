@@ -1,4 +1,4 @@
-NAME=factorial
+NAME=add
 
 build: $(NAME).wasm $(NAME).wat
 
