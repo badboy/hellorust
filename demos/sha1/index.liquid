@@ -34,8 +34,9 @@ path: /demos/sha1
     .then(mod => {
       Module.alloc   = mod.exports.alloc;
       Module.dealloc = mod.exports.dealloc;
+      Module.dealloc_str = mod.exports.dealloc_str;
       Module.digest  = mod.exports.digest;
-      Module.memory  = new Uint8Array(mod.exports.memory.buffer)
+      Module.memory  = mod.exports.memory;
 
       var input = document.getElementById("input");
       var output = document.getElementById("output");

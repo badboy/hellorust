@@ -6,8 +6,6 @@ use std::os::raw::{c_char, c_void};
 
 use sha1::Sha1;
 
-fn main() {}
-
 #[no_mangle]
 pub extern "C" fn alloc(size: usize) -> *mut c_void {
     let mut buf = Vec::with_capacity(size);
@@ -20,6 +18,13 @@ pub extern "C" fn alloc(size: usize) -> *mut c_void {
 pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
     unsafe  {
         let _buf = Vec::from_raw_parts(ptr, 0, cap);
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn dealloc_str(ptr: *mut c_char) {
+    unsafe {
+        let _ = CString::from_raw(ptr);
     }
 }
 

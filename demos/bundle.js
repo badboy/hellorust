@@ -9,10 +9,12 @@ function fetchAndInstantiate(url, importObject) {
 }
 
 function copyCStr(module, ptr) {
+  let orig_ptr = ptr;
   const collectCString = function* () {
-    while (module.memory[ptr] !== 0) {
-      if (module.memory[ptr] === undefined) { throw new Error("Tried to read undef mem") }
-      yield module.memory[ptr]
+    let memory = new Uint8Array(module.memory.buffer);
+    while (memory[ptr] !== 0) {
+      if (memory[ptr] === undefined) { throw new Error("Tried to read undef mem") }
+      yield memory[ptr]
       ptr += 1
     }
   }
@@ -20,14 +22,16 @@ function copyCStr(module, ptr) {
   const buffer_as_u8 = new Uint8Array(collectCString())
   const utf8Decoder = new TextDecoder("UTF-8");
   const buffer_as_utf8 = utf8Decoder.decode(buffer_as_u8);
+  Module.dealloc_str(orig_ptr);
   return buffer_as_utf8
 }
 
 function getStr(module, ptr, len) {
   const getData = function* (ptr, len) {
+    let memory = new Uint8Array(module.memory.buffer);
     for (let index = 0; index < len; index++) {
-      if (module.memory[ptr] === undefined) { throw new Error(`Tried to read undef mem at ${ptr}`) }
-      yield module.memory[ptr + index]
+      if (memory[ptr] === undefined) { throw new Error(`Tried to read undef mem at ${ptr}`) }
+      yield memory[ptr + index]
     }
   }
 
@@ -43,11 +47,12 @@ function newString(module, str) {
   let len = string_buffer.length
   let ptr = module.alloc(len)
 
+  let memory = new Uint8Array(module.memory.buffer);
   for (i = 0; i < len; i++) {
-    module.memory[ptr+i] = string_buffer[i]
+    memory[ptr+i] = string_buffer[i]
   }
 
-  module.memory[ptr+len] = 0;
+  memory[ptr+len] = 0;
 
   return ptr
 }
