@@ -51,7 +51,7 @@ pub fn add_one(x: i32) -> i32 {
 
 <pre><code>rustup update
 rustup target add wasm32-unknown-unknown --toolchain nightly
-rustc +nightly --target wasm32-unknown-unknown -O --crate-type=cdylib add.rs -o add.big.rs</code></pre>
+rustc +nightly --target wasm32-unknown-unknown -O --crate-type=cdylib add.rs -o add.big.wasm</code></pre>
 
 <p>Reduce the size by removing unused stuff from the module:</p>
 
