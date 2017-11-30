@@ -102,10 +102,18 @@ pub fn fact_str(n: u32) -> *mut c_char {
   <a href="/demos/bundle.js"><code>bundle.js</code></a>.
 </p>
 
-<pre><code class="javascript">fetchAndInstantiate("./factorial.wasm", {})
+<pre><code class="javascript">window.Module = {};
+fetchAndInstantiate("./factorial.wasm", {})
 .then(mod => {
-  let fact  = mod.exports.fact;
-  console.log(copyCStr(fact_str(5)));
+  Module.fact  = mod.exports.fact;
+  Module.alloc = mod.exports.alloc;
+  Module.dealloc_str = mod.exports.dealloc_str;
+  Module.memory = mod.exports.memory;
+  Module.fact_str = function(n) {
+    let outptr = mod.exports.fact_str(n);
+    let result = copyCStr(Module, outptr);
+    return result;
+  };
 })
 </code></pre>
 
