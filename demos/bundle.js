@@ -45,7 +45,7 @@ function newString(module, str) {
   const utf8Encoder = new TextEncoder("UTF-8");
   let string_buffer = utf8Encoder.encode(str)
   let len = string_buffer.length
-  let ptr = module.alloc(len)
+  let ptr = module.alloc(len+1)
 
   let memory = new Uint8Array(module.memory.buffer);
   for (i = 0; i < len; i++) {
