@@ -24,6 +24,7 @@ fetch("canvas.wasm").then(response =>
 
     var usub = new Uint8ClampedArray(mod.exports.memory.buffer, pointer, byteSize);
     var img = new ImageData(usub, width, height);
+    var running = false;
 
     var start = null;
     function step(timestamp) {
@@ -35,9 +36,11 @@ fetch("canvas.wasm").then(response =>
 
         start = timestamp
 
-        window.requestAnimationFrame(draw);
+        if (running)
+          window.requestAnimationFrame(draw);
       } else {
-        window.requestAnimationFrame(step);
+        if (running)
+          window.requestAnimationFrame(step);
       }
     }
 
@@ -46,7 +49,18 @@ fetch("canvas.wasm").then(response =>
       window.requestAnimationFrame(step);
     }
 
-    window.requestAnimationFrame(step);
+    //if (running)
+      //window.requestAnimationFrame(step);
+    var button = document.getElementById("run-wasm");
+    button.addEventListener("click", function(e) {
+      running = !running;
+      if (running) {
+        button.innerText = "Stop motion";
+        window.requestAnimationFrame(step);
+      } else {
+        button.innerText = "Start motion";
+      }
+    });
   }
-
 });
+
