@@ -12,3 +12,4 @@ Code will be made published soon (but is more or less the default example with s
 * [Minimal working example](/demos/add/index.html)
 * [Calculate SHA1 digest](/demos/sha1/index.html)
 * [Factorial](/demos/factorial/index.html)
+* [Canvas](/demos/canvas/index.html)

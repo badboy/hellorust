@@ -1,0 +1,151 @@
+extends: site.liquid
+title: "Demo: update a canvas from wasm"
+path: /demos/canvas
+---
+
+<h2>Update a canvas from wasm</h2>
+
+<p>
+  by <a href="https://github.com/Geal">Geoffroy Couprie</a>
+</p>
+
+<button id="run-wasm">Start motion</button>
+<br />
+<p>
+  <em>Caution:</em> This will display a flickering image.
+</p>
+
+<canvas id="screen" width="500px" height="500px" style="border: black 1px solid"></canvas>
+<script src="script.js"></script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  This example shares a buffer between the Javascript side and the Rust side, and uses
+  it to update the raw pixels on a canvas.
+</p>
+<p>
+  <a href="./src/main.rs">Download main.rs</a>
+</p>
+
+<pre><code class="rust">use std::mem;
+use std::slice;
+use std::os::raw::c_void;
+
+// We need to provide an (empty) main function,
+// as the target currently is compiled as a binary.
+fn main() {}
+
+// In order to work with the memory we expose (de)allocation methods
+#[no_mangle]
+pub extern "C" fn alloc(size: usize) -> *mut c_void {
+    let mut buf = Vec::with_capacity(size);
+    let ptr = buf.as_mut_ptr();
+    mem::forget(buf);
+    return ptr as *mut c_void;
+}
+
+#[no_mangle]
+pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
+    unsafe  {
+        let _buf = Vec::from_raw_parts(ptr, 0, cap);
+    }
+}
+
+// the Javascript side passes a pointer to a buffer, the size of the corresponding canvas
+// and the current timestamp
+#[no_mangle]
+pub fn fill(pointer: *mut u8, max_width: usize, max_height: usize, time: f64) {
+
+    // pixels are stored in RGBA, so each pixel is 4 bytes
+    let byte_size = max_width * max_height * 4;
+    let sl = unsafe { slice::from_raw_parts_mut(pointer, byte_size) };
+
+    for i in 0..byte_size {
+
+        // get the position of current pixel
+        let height = i / 4 / max_width;
+        let width  = i / 4 % max_width;
+
+        if i%4 == 3 {
+            // set opacity to 1
+            sl[i] = 255;
+        } else if i%4 == 0 {
+            // create a red ripple effect from the top left corner
+            let len = ((height*height + width*width) as f64).sqrt();
+            let nb = time  + len / 4.0;
+            let a = 128.0 + nb.cos() * 128.0;
+            sl[i] = a as u8;
+        } else if i % 4 == 2 {
+            // create a blue ripple effect from the top right corner
+            let width = 500 - width;
+            let len = ((height*height + width*width) as f64).sqrt();
+            let nb = time  + len / 4.0;
+            let a = 128.0 + nb.cos() * 128.0;
+            sl[i] = a as u8;
+        }
+    }
+}
+</code></pre>
+
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported functions and fields, including the allocation and memory.
+  We create an ImageData backed by memory allocated on the Rust side, and regularly update it.
+</p>
+
+<pre><code class="javascript">fetch("canvas.wasm").then(response =>
+  response.arrayBuffer()
+).then(bytes =>
+
+  // the Rust side needs a cos function
+  WebAssembly.instantiate(bytes, { env: { cos: Math.cos } })
+).then(results => {
+  let module = {};
+  let mod = results.instance;
+  module.alloc   = mod.exports.alloc;
+  module.dealloc = mod.exports.dealloc;
+  module.fill    = mod.exports.fill;
+
+  var width  = 500;
+  var height = 500;
+
+
+  var canvas = document.getElementById('screen');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+
+    let byteSize = width * height * 4;
+    var pointer = module.alloc( byteSize );
+
+    var usub = new Uint8ClampedArray(mod.exports.memory.buffer, pointer, byteSize);
+    var img = new ImageData(usub, width, height);
+
+    var start = null;
+    function step(timestamp) {
+      var progress;
+      if (start === null) start = timestamp;
+      progress = timestamp - start;
+      if (progress > 100) {
+        module.fill(pointer, width, height, timestamp);
+
+        start = timestamp
+
+        window.requestAnimationFrame(draw);
+      } else {
+        window.requestAnimationFrame(step);
+      }
+    }
+
+    function draw() {
+      ctx.putImageData(img, 0, 0)
+      window.requestAnimationFrame(step);
+    }
+
+    window.requestAnimationFrame(step);
+  }
+
+});
+</code></pre>
