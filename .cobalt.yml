@@ -8,3 +8,5 @@ rss: feed.xml
 ignore:
   - .git/*
   - build/*
+  - Makefile
+  - drafts
