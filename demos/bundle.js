@@ -22,7 +22,7 @@ function copyCStr(module, ptr) {
   const buffer_as_u8 = new Uint8Array(collectCString())
   const utf8Decoder = new TextDecoder("UTF-8");
   const buffer_as_utf8 = utf8Decoder.decode(buffer_as_u8);
-  Module.dealloc_str(orig_ptr);
+  module.dealloc_str(orig_ptr);
   return buffer_as_utf8
 }
 
