@@ -109,6 +109,10 @@ pub extern "C" fn digest(data: *mut c_char) -> *mut c_char {
 </code></pre>
 
 <p>
+  This can be built using cargo with the command <code>cargo +nightly build --target wasm32-unknown-unknown --release</code>.
+</p>
+
+<p>
   The JavaScript code loads the WebAssembly module and has access to the exported functions and fields, including the allocation and memory.
   To pass a JavaScript string, we first allocate some space in the exported memory buffer and copy over the string.
   On return of the <code>digest</code> function, we copy back the new string from the memory buffer.
