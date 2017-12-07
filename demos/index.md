@@ -13,3 +13,4 @@ Code will be made published soon (but is more or less the default example with s
 * [Calculate SHA1 digest](/demos/sha1/index.html)
 * [Factorial](/demos/factorial/index.html)
 * [Canvas](/demos/canvas/index.html)
+* [Import memory](/demos/import-memory/index.html)
