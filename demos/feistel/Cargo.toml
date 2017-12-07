@@ -1,0 +1,12 @@
+[package]
+name = "feistel"
+version = "0.1.0"
+
+[lib]
+path = "feistel.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+
+[profile.release]
+opt-level = "s"

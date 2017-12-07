@@ -1,0 +1,196 @@
+extends: site.liquid
+title: "Demo: update a canvas from wasm"
+path: /demos/feistel
+---
+
+<h2>FizzleFade effect using a Feistel network</h2>
+
+<p>
+  based on code by <a href="http://antirez.com/news/113">Salvatore Sanfilippo (antirez)</a>.
+</p>
+
+<button id="run-wasm">Restart</button>
+<br />
+<p>
+  <em>Caution:</em> This will display a flickering image.
+</p>
+
+<canvas id="screen" width="320" height="200" style="border: black 1px solid"></canvas>
+<script src="script.js"></script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  This example shares a buffer between the Javascript side and the Rust side,
+  and uses it to update the raw pixels on a canvas.
+</p>
+<p>
+  <a href="./feistel.rs">Download feistel.rs</a>
+  <br>
+  <a href="./feistel.wat">Download feistel.wat (WebAssembly text format)</a>
+</p>
+
+<pre><code class="rust">use std::mem;
+use std::slice;
+use std::os::raw::c_void;
+
+#[no_mangle]
+pub extern "C" fn alloc(size: usize) -> *mut c_void {
+    let mut buf = Vec::with_capacity(size);
+    let ptr = buf.as_mut_ptr();
+    mem::forget(buf);
+    return ptr as *mut c_void;
+}
+
+#[no_mangle]
+pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
+    unsafe  {
+        let _buf = Vec::from_raw_parts(ptr, 0, cap);
+    }
+}
+
+fn feistel_net(input: u16) -> u16 {
+    let mut l = input & 0xff;
+    let mut r = input >> 8;
+
+    for _ in 0..8 {
+        let nl = r;
+        let f = (((r * 11) + (r >> 5) + 7 * 127) ^ r) & 0xff;
+        r = l ^ f;
+        l = nl;
+    }
+
+    ((r<<8)|l) & 0xffff
+}
+
+fn set_pixel(pixels: &mut [u8], width: u16, x: u16, y: u16) {
+    let x = x as usize;
+    let y = y as usize;
+    let width = width as usize;
+    let offset = x*4 + y*4 * width;
+
+    pixels[(offset+0)] = 255;
+    pixels[(offset+1)] = 0;
+    pixels[(offset+2)] = 0;
+    pixels[(offset+3)] = 255;
+}
+
+#[no_mangle]
+pub fn clear(pointer: *mut u8, width: usize, height: usize) {
+    let byte_size = width * height * 4;
+    let buf = unsafe { slice::from_raw_parts_mut(pointer, byte_size) };
+
+    for i in buf.iter_mut() {
+        *i = 0;
+    }
+}
+
+#[no_mangle]
+pub fn fill(pointer: *mut u8, width: usize, height: usize, mut frame: u32) -> u32 {
+    if frame == 65536 {
+        return frame;
+    }
+
+    // pixels are stored in RGBA, so each pixel is 4 bytes
+    let byte_size = width * height * 4;
+    let buf = unsafe { slice::from_raw_parts_mut(pointer, byte_size) };
+
+    let width = width as u16;
+    let height = height as u16;
+
+    for _ in 0..200 {
+        if frame == 65536 {
+            break;
+        }
+
+        let pos = feistel_net(frame as u16);
+        let x = pos % width;
+        let y = pos / width;
+        if x < width && y < height {
+            set_pixel(buf, width, x, y);
+        }
+
+        frame += 1;
+    }
+
+    frame
+}
+</code></pre>
+
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported functions and fields, including the allocation and memory.
+  We create an ImageData backed by memory allocated on the Rust side, and regularly update it.
+</p>
+
+<pre><code class="javascript">fetch("feistel.wasm", {cache: "no-cache"}).then(response =>
+  response.arrayBuffer()
+).then(bytes =>
+  WebAssembly.instantiate(bytes, {})
+).then(results => {
+  let module = {};
+  let mod = results.instance;
+  module.alloc   = mod.exports.alloc;
+  module.dealloc = mod.exports.dealloc;
+  module.fill    = mod.exports.fill;
+  module.clear   = mod.exports.clear;
+
+  var width  = 320;
+  var height = 200;
+
+  let byteSize = width * height * 4;
+  var pointer = module.alloc( byteSize );
+  var buffer = new Uint8Array(mod.exports.memory.buffer, pointer, byteSize);
+
+  var button = document.getElementById("run-wasm");
+  var canvas = document.getElementById('screen');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+
+    var pointer = module.alloc( byteSize );
+
+    var usub = new Uint8ClampedArray(mod.exports.memory.buffer, pointer, byteSize);
+    var img = new ImageData(usub, width, height);
+    var running = false;
+
+    var frame = 0;
+    var running = false;
+    function step(timestamp) {
+      if (!running) return;
+
+      frame = module.fill(pointer, width, height, frame);
+      ctx.putImageData(img, 0, 0)
+
+      if (frame != 65536) {
+        window.requestAnimationFrame(step);
+      } else {
+        button.innerText = "Restart";
+        running = false;
+      }
+    }
+
+    function clearCanvasAndRestart() {
+      running = false;
+      window.requestAnimationFrame(function() {
+        ctx.clearRect(0, 0, width, height);
+        module.clear(pointer, width, height);
+        frame = 0;
+        running = true;
+        window.requestAnimationFrame(step);
+      });
+    }
+
+    button.addEventListener("click", function(e) {
+      if (running) {
+        button.innerText = "Restart";
+        running = false;;
+      } else {
+        button.innerText = "Stop";
+        clearCanvasAndRestart();
+      }
+    });
+  }
+});
+</code></pre>
