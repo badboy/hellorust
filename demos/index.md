@@ -15,3 +15,4 @@ Code will be made published soon (but is more or less the default example with s
 * [Canvas](/demos/canvas/index.html)
 * [Import memory](/demos/import-memory/index.html)
 * [FizzleFade effect with a Feistel network](/demos/feistel/index.html)
+* [Call JavaScript from Rust](/demos/call-js/index.html)
