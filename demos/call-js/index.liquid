@@ -1,0 +1,82 @@
+extends: site.liquid
+title: "Demo: Call JavaScript from Rust"
+path: /demos/call-js
+---
+
+<h2>Demo: Call JavaScript from Rust</h2>
+
+<p>
+  Click the button to run the WebAssembly code.
+</p>
+
+<button id="run-wasm">Run</button>
+
+<script src="/demos/bundle.js"></script>
+<script>
+  window.Module = {};
+  var button = document.getElementById("run-wasm");
+  button.addEventListener("click", function(e) {
+    const imports = {
+      env: {
+        alert: function(ptr, number) {
+          let str = copyCStr(Module, ptr);
+          alert(str + " -> " + number);
+        }
+      }
+    };
+    fetchAndInstantiate("./call-js.wasm", imports)
+    .then(mod => {
+      Module.memory      = mod.exports.memory;
+      Module.run         = mod.exports.run;
+      Module.dealloc_str = function() {}
+
+      Module.run();
+    });
+  });
+</script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  <a href="./call-js.rs">Download call-js.rs</a>
+  <br />
+  <a href="./call-js.wat">Download call-js.wat (WebAssembly text format)</a>
+</p>
+
+<pre><code class="rust">extern {
+    fn alert(ptr: *const u8, number: u32);
+}
+
+#[no_mangle]
+pub fn run() {
+    unsafe {
+        let x = b"Hello World!\0";
+        alert(x as *const u8, 42);
+    }
+}</code></pre>
+
+<p>
+  The JavaScript code loads the WebAssembly module and has access to the exported function.
+</p>
+
+<pre><code class="javascript">window.Module = {};
+
+const imports = {
+  env: {
+    alert: function(ptr, number) {
+      let str = copyCStr(Module, ptr);
+      alert(str + " -> " + number);
+    }
+  }
+};
+
+fetchAndInstantiate("./call-js.wasm", imports)
+.then(mod => {
+  Module.memory      = mod.exports.memory;
+  Module.run         = mod.exports.run;
+
+  Module.run();
+});
+</code></pre>
