@@ -10,3 +10,4 @@ ignore:
   - build/*
   - Makefile
   - drafts
+  - README.md
