@@ -79,5 +79,5 @@ crate-type = ["cdylib"]
 Finally, compile it:
 
 ```
-cargo build --target wasm32-unknown-unknown --release
+cargo  +nightly build --target wasm32-unknown-unknown --release
 ```
