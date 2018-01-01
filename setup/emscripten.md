@@ -1,8 +1,7 @@
-extends: site.liquid
-title: Setup - Emscripten
-path: /setup/emscripten
+permalink: /setup/emscripten
+title: "Setup - Emscripten"
+layout: site.liquid
 ---
-
 ## Setup
 
 To get a `rustc` with Emscripten support all you need is a recent version.

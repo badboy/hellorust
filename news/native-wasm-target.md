@@ -1,10 +1,9 @@
-extends: post.liquid
-
 title: "wasm32-unknown-unknown landed & enabled"
-author: Jan-Erik Rediger
-date: 26 Nov 2017 12:24:00 +0100
+published_date: "2017-11-26 12:24:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 Yesterday the
 [Pull Request 46115: "rustbuild: Enable WebAssembly backend by default"](https://github.com/rust-lang/rust/pull/46115) was merged into Rust master.
 With the Nightly build from that night, the <code>wasm32-unknown-unknown</code> target is natively available.

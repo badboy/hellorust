@@ -1,10 +1,9 @@
-extends: post.liquid
-
 title: "Link: Semver on the web with Rust and WebAssembly"
-author: Jan-Erik Rediger
-date: 05 Dec 2017 14:22:00 +0100
+published_date: "2017-12-05 14:22:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 [Steve Klabnik](https://github.com/steveklabnik/) built a Rust-powered minimal clone of the [npm semver calculator](https://semver.npmjs.com/) using Rust and WebAssembly.
 
 

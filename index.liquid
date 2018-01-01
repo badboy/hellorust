@@ -1,15 +1,14 @@
-extends: site.liquid
+layout: site.liquid
 ---
-
 <h2>Latest News</h2>
 
 {% assign idx = 0 %}
-{% for post in posts %}
+{% for post in collections.posts.pages %}
 {% if idx < 1 %}
 <article class="blog-list">
-  <h3><a href="{{ post.path }}">{{ post.title }}</a></h3>
-  <time pubdate="pubdate">{{ post.date | date: "%b %d, %Y" }}</time>
-  - {{ post.author }}
+  <h3><a href="{{ post.permalink }}">{{ post.title }}</a></h3>
+  <time pubdate="pubdate">{{ post.published_date | date: "%b %d, %Y" }}</time>
+  - {{ post.data.author }}
   <br />
   <p>{{ post.content | strip_html | truncatewords: 25, '...' }}</p>
 </article>

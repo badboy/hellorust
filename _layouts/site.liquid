@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {{ include "_layouts/_head.liquid" }}
+    {% include "_head.liquid" %}
   </head>
 
   <body class="container">
-    {{ include "_layouts/_menu.liquid" }}
+    {% include "_menu.liquid" %}
 
     <div class="row code-row">
       <div class="col-md-12">
-        {{ content }}
+        {{ page.content }}
       </div>
     </div>
 
-    {{ include "_layouts/_footer.liquid" }}
+    {% include "_footer.liquid" %}
     <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>

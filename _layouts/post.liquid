@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {{ include "_layouts/_head.liquid" }}
+    {% include "_head.liquid" %}
   </head>
 
   <body class="container">
-    {{ include "_layouts/_menu.liquid" }}
+    {% include "_menu.liquid" %}
 
     <div class="row code-row">
       <div class="col-md-12">
           <article>
-              <h1>{{ title }}</h1>
-              <time pubdate="pubdate">{{ date | date: "%b %d, %Y" }}</time>
-              - {{ author }}
+              <h1>{{ page.title }}</h1>
+              <time pubdate="pubdate">{{ page.published_date | date: "%b %d, %Y" }}</time>
+              - {{ page.data.author }}
 
 
-              {{ content }}
+              {{ page.content }}
           </article>
       </div>
     </div>
 
-    {{ include "_layouts/_footer.liquid" }}
+    {% include "_footer.liquid" %}
   </body>
 </html>

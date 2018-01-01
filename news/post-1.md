@@ -1,10 +1,9 @@
-extends: post.liquid
-
-title: Hello, Rust! Hello, WebAssembly!
-author: Jan-Erik Rediger
-date: 18 Nov 2017 15:10:00 +0100
+title: "Hello, Rust! Hello, WebAssembly!"
+published_date: "2017-11-18 15:10:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 [hellorust.com](/) is live!
 
 This site will collect resources, guides, articles and links around Rust &amp; WebAssembly.
