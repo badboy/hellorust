@@ -27,8 +27,8 @@ path: /demos/import-memory
         let buf = newString(Module, str);
         let outptr = mod.exports.roundtrip(buf);
         let result = copyCStr(Module, outptr);
-        Module.dealloc(buf);
-        Module.dealloc(outptr);
+        Module.dealloc_str(buf);
+        Module.dealloc_str(outptr);
         return result;
       };
 
@@ -97,8 +97,8 @@ fetchAndInstantiate("./string-passing.wasm", imports)
       let buf = newString(Module, str);
       let outptr = mod.exports.roundtrip(buf);
       let result = copyCStr(Module, outptr);
-      Module.dealloc(buf);
-      Module.dealloc(outptr);
+      Module.dealloc_str(buf);
+      Module.dealloc_str(outptr);
       return result;
     };
 
