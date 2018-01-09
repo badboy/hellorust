@@ -8,6 +8,12 @@ before_script:
 script:
   - cobalt build
 
+branches:
+  only:
+    - staging
+    - trying
+    - master
+
 deploy:
   provider: pages
   skip_cleanup: true
