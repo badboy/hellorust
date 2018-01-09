@@ -1,0 +1,31 @@
+source: "./"
+destination: build
+include_drafts: false
+default:
+  excerpt_separator: "<!-- more -->"
+  is_draft: false
+pages:
+  default: {}
+posts:
+  title: ~
+  description: ~
+  dir: news
+  drafts_dir: drafts
+  order: Desc
+  rss: feed.xml
+  jsonfeed: ~
+  default: {}
+site:
+  title: "Hello, Rust!"
+  description: "Rust for the Web"
+  base_url: "https://www.hellorust.com"
+  data: ~
+template_extensions:
+  - md
+  - liquid
+ignore:
+  - README.md
+  - Makefile
+assets:
+  sass:
+    style: Nested
