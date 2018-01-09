@@ -1,8 +1,8 @@
-extends: post.liquid
-
 title: "New Year's Roundup"
-author: Jan-Erik Rediger
-date: 08 Jan 2018 11:45:00 +0100
+published_date: "2018-01-08 11:45:00 +0100"
+layout: post.liquid
+data:
+  author: Jan-Erik Rediger
 ---
 
 The last post on here was a while back. Since then a lot of things happened in the Rust and WebAssembly world, so here's a quick roundup to get up to speed.
