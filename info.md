@@ -1,9 +1,9 @@
-extends: site.liquid
+permalink: /info
 title: Info
-route: info
-path: /info
+layout: site.liquid
+data:
+  route: info
 ---
-
 ## Info
 
 This site collects information, resources, articles, examples and links regarding Rust & WebAssembly.

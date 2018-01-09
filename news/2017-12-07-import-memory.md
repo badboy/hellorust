@@ -1,10 +1,9 @@
-extends: post.liquid
-
-title: "Importing memory"
-author: Jan-Erik Rediger
-date: 07 Dec 2017 15:32:00 +0100
+title: Importing memory
+published_date: "2017-12-07 15:32:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 I added a new small example demonstrating how to instantiate a memory buffer from the JavaScript side
 and import it into the WebAssembly module.
 

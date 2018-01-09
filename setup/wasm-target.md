@@ -1,8 +1,7 @@
-extends: site.liquid
-title: Setup - Wasm target
-path: /setup/wasm-target
+permalink: "/setup/wasm-target"
+title: "Setup - Wasm target"
+layout: site.liquid
 ---
-
 ## Setup
 
 <aside>

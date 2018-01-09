@@ -1,10 +1,9 @@
-extends: post.liquid
-
 title: "Link: Writing a Brainfuck Interpreter in Rust (and WebAssebmly)"
-author: Jan-Erik Rediger
-date: 04 Dec 2017 12:18:00 +0100
+published_date: "2017-12-04 12:18:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 [Shritesh Bhattarai](https://shr.ite.sh/about) wrote a blog post about a simple Brainfuck interpreter written in Rust, compiled to WebAssembly:
 
 

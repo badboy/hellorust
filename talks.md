@@ -1,9 +1,9 @@
-extends: site.liquid
+permalink: /talks
 title: Talks
-route: talks
-path: /talks
+layout: site.liquid
+data:
+  route: talks
 ---
-
 ## Talks & Workshops
 
 A collection of talks and workshops about Rust, WebAssembly and connected topics.  

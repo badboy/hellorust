@@ -1,9 +1,9 @@
-extends: site.liquid
+permalink: /resources
 title: Resources
-route: resources
-path: /resources
+layout: site.liquid
+data:
+  route: resources
 ---
-
 ## Resources
 
 A collection of various resources and blog posts explaining Rust & WebAssembly, available tools or showing demo applications.

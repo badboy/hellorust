@@ -1,8 +1,7 @@
-extends: site.liquid
-title: Setup - Docker
-path: /setup/docker
+permalink: /setup/docker
+title: "Setup - Docker"
+layout: site.liquid
 ---
-
 ## Setup
 
 Pull down tomaka's Docker image:

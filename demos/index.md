@@ -1,9 +1,9 @@
-extends: site.liquid
+permalink: /demos
 title: Demos
-route: demos
-path: /demos
+layout: site.liquid
+data:
+  route: demos
 ---
-
 ## Demos
 
 Some examples of Rust code compiled to JavaScript or WebAssembly.

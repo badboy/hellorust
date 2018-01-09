@@ -1,10 +1,9 @@
-extends: post.liquid
-
 title: "Minimal Rust & WebAssembly example"
-author: Jan-Erik Rediger
-date: 26 Nov 2017 16:25:00 +0100
+published_date: "2017-11-26 16:25:00 +0100"
+layout: post.liquid
+data:
+  author: "Jan-Erik Rediger"
 ---
-
 You can now find a minimal working example for compiling Rust to WebAssembly
 and runnig it in the browser in the demos section:
 
