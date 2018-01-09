@@ -69,10 +69,6 @@ use std::os::raw::{c_char, c_void};
 
 use sha1::Sha1;
 
-// We need to provide an (empty) main function,
-// as the target currently is compiled as a binary.
-fn main() {}
-
 // In order to work with the memory we expose (de)allocation methods
 #[no_mangle]
 pub extern "C" fn alloc(size: usize) -> *mut c_void {
