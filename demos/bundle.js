@@ -8,6 +8,8 @@ function fetchAndInstantiate(url, importObject) {
   );
 }
 
+// Copy a nul-terminated string from the buffer pointed to.
+// Consumes the old data and thus deallocated it.
 function copyCStr(module, ptr) {
   let orig_ptr = ptr;
   const collectCString = function* () {
@@ -54,5 +56,5 @@ function newString(module, str) {
 
   memory[ptr+len] = 0;
 
-  return ptr
+  return ptr;
 }
