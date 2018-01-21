@@ -75,6 +75,7 @@ fetchAndInstantiate("./call-js.wasm", imports)
 .then(mod => {
   Module.memory      = mod.exports.memory;
   Module.run         = mod.exports.run;
+  Module.dealloc_str = function() {}
 
   Module.run();
 });
