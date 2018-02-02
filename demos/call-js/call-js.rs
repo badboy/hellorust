@@ -3,7 +3,7 @@ extern {
 }
 
 #[no_mangle]
-pub fn run() {
+pub extern "C" fn run() {
     unsafe {
         let x = b"Hello World!\0";
         alert(x as *const u8, 42);

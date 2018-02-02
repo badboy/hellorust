@@ -20,7 +20,7 @@ pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
 }
 
 #[no_mangle]
-pub fn fill(pointer: *mut u8, max_width: usize, max_height: usize, time: f64) {
+pub extern "C" fn fill(pointer: *mut u8, max_width: usize, max_height: usize, time: f64) {
 
   // pixels are stored in RGBA, so each pixel is 4 bytes
   let byte_size = max_width * max_height * 4;

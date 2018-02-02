@@ -73,7 +73,7 @@ layout: site.liquid
 <pre><code class="rust">fn main() {}
 
 #[no_mangle]
-pub fn fact(mut n: u32) -> u64 {
+pub extern "C" fn fact(mut n: u32) -> u64 {
     let n = n as u64;
     let mut result = 1;
     while n > 0 {
@@ -84,7 +84,7 @@ pub fn fact(mut n: u32) -> u64 {
 }
 
 #[no_mangle]
-pub fn fact_str(n: u32) -> *mut c_char {
+pub extern "C" fn fact_str(n: u32) -> *mut c_char {
     let res = fact(n);
     let s = format!("{}", res);
     let s = CString::new(s).unwrap();

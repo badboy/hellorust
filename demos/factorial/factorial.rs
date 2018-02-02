@@ -18,7 +18,7 @@ pub extern "C" fn dealloc_str(ptr: *mut c_char) {
 }
 
 #[no_mangle]
-pub fn fact(n: u32) -> u64 {
+pub extern "C" fn fact(n: u32) -> u64 {
     let mut n = n as u64;
     let mut result = 1;
     while n > 0 {
@@ -29,7 +29,7 @@ pub fn fact(n: u32) -> u64 {
 }
 
 #[no_mangle]
-pub fn fact_str(n: u32) -> *mut c_char {
+pub extern "C" fn fact_str(n: u32) -> *mut c_char {
     let res = fact(n);
     let s = format!("{}", res);
     let s = CString::new(s).unwrap();
