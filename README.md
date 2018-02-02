@@ -29,9 +29,9 @@ Once you have done that add the example's name to the main [Makefile](Makefile),
 Add an `index.liquid` file for your example and make sure the following header is included:
 
 ```
-extends: site.liquid
+permalink: /demos/slug-of-your-example
 title: "Demo: Name of your example"
-path: /demos/slug-of-your-example
+layout: site.liquid
 ---
 ```
 
