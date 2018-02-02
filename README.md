@@ -24,6 +24,7 @@ Just pick a good short name as the directory name.
 
 Please add a `Makefile` which compiles and copies all necessary files in place on invocation.
 See [demos/add/Makefile](demos/add/Makefile) for a simple example.
+Once you have done that add the example's name to the main [Makefile](Makefile), so it can be rebuild easily.
 
 Add an `index.liquid` file for your example and make sure the following header is included:
 
