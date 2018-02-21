@@ -42,3 +42,18 @@ Use HTML to structure your example explanation.
 All contributions are welcome.
 [Please open an issue](https://github.com/badboy/hellorust/issues/new) and tell us about your ideas.
 Pull Requests with new resources or examples are welcome as well.
+
+## License [![CC0-badge]][CC0-deed]
+
+Texts and example code on [www.hellorust.com](https://www.hellorust.com/) are licensed under Creative Commons Zero v1.0 Universal License
+([LICENSE-CC0](LICENSE-CC0) or https://creativecommons.org/publicdomain/zero/1.0/legalcode)
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in Hellorust by you, as defined in the CC0-1.0 license, shall be
+[dedicated to the public domain][CC0-deed] and licensed as above, without any additional
+terms or conditions.
+
+External dependencies used in example code remain under their own license.
+
+[CC0-deed]: https://creativecommons.org/publicdomain/zero/1.0/deed.en
+[CC0-badge]: https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/cc-zero.svg
