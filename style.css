@@ -576,3 +576,9 @@ aside {
 aside p {
     margin: 0.7em;
 }
+
+.deprecation-notice {
+  text-align: center;
+  background-color: #fffbdd;
+  color: #735c0f;
+}
