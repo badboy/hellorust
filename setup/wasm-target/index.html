@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup - Wasm target - Hello, Rust!</title>
+<meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust, WebAssembly, wasm">
+<link rel="stylesheet" href="/bootstrap.css">
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet" href="/assets/default.min.css">
+<script src="/assets/highlight.min.js"></script>
+
+  </head>
+
+  <body class="container">
+    <header>
+  <ul class="row menu">
+    <li class="col-xs-12 col-md-12 deprecation-notice">
+        <h2>
+            This site is archived and read-only.
+            <br />
+            Check out the <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a>.
+        </h2>
+    </li>
+    <li class="col-xs-12 col-md-10">
+      <h1><a href="/">Hello, Rust!</a></h1>
+      <h3>Rust for the Web</h3>
+    </li>
+
+    <li class="col-xs-12 col-md-10">
+      <h2><a href="/news/">News</a></h2>
+      <h2><a href="/setup/">Setup</a></h2>
+      <h2><a href="/demos/">Demos</a></h2>
+      <h2><a href="/talks/">Talks</a></h2>
+      <h2><a href="/resources/">Resources</a></h2>
+    </li>
+  </ul>
+</header>
+
+
+    <div class="row code-row">
+      <div class="col-md-12">
+        <h2>Setup</h2>
+<aside>
+<p>
+Since 20th November, 2017 the
+<a href="https://github.com/rust-lang/rust/pull/45905">Pull Request 45905: "std: Add a new wasm32-unknown-unknown target"</a>
+ is merged into Rust master.
+It is contained in Nightly builds, but the LLVM backend is not enabled.
+</p>
+</aside>
+<aside>
+<p>
+Since 25th November, 2017 the
+<a href="https://github.com/rust-lang/rust/pull/46115">Pull Request 46115: "rustbuild: Enable WebAssembly backend by default"</a>
+ is merged into Rust master.
+With the Nightly build from that night, the <code>wasm32-unknown-unknown</code> target is natively available.
+</p>
+</aside>
+<p>Install the latest nightly (2017-11-25 or later):</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustup toolchain install nightly
+</span></pre>
+<p>If you already installed <code>nightly</code> before, make sure it is up to date:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustup update
+</span></pre>
+<p>Install the required target:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustup target add wasm32-unknown-unknown --toolchain nightly
+</span></pre>
+<p>Compile your code to WebAssembly:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustc +nightly --target wasm32-unknown-unknown -O hello.rs
+</span></pre>
+<p>(The <code>+nightly</code> part is a shortcut handled by rustup's wrappers around <code>rustc</code> and <code>cargo</code>)</p>
+<p>You will end up with a <code>hello.wasm</code>. It will be quite big. To reduce size, first install <code>wasm-gc</code>:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">cargo install --git https://github.com/alexcrichton/wasm-gc
+</span></pre>
+<p>Then run it to reduce the size of the WebAssembly module:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">wasm-gc hello.wasm small-hello.wasm
+</span></pre>
+<p>You can also compile a project to WebAssembly using <code>cargo</code>.
+First create the project:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">cargo new myproject
+</span></pre>
+<p>Next, change the crate type to <code>cdylib</code>. Add this to your <code>Cargo.toml</code>:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">[lib]
+</span><span style="background-color:#2b303b;color:#c0c5ce;">path = &quot;src/lib.rs&quot;
+</span><span style="background-color:#2b303b;color:#c0c5ce;">crate-type = [&quot;cdylib&quot;]
+</span></pre>
+<p>Finally, compile it:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">cargo  +nightly build --target wasm32-unknown-unknown --release
+</span></pre>
+      </div>
+    </div>
+
+    <footer>
+  <hr>
+  <p>
+      This is not an official <a href="https://www.rust-lang.org/">Rust</a> project /
+      <a href="/info/">Info</a> / 
+      <a href="https://github.com/badboy/hellorust">Contribute</a> /
+      <a href="/feed.xml">RSS Feed</a>
+  </p>
+</footer>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

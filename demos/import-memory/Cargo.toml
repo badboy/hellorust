@@ -1,0 +1,11 @@
+[package]
+name = "string-passing"
+version = "0.1.0"
+authors = ["Jan-Erik Rediger <janerik@fnordig.de>"]
+
+[lib]
+path = "string-passing.rs"
+crate-type = ["cdylib"]
+
+[profile.release]
+opt-level = "s"

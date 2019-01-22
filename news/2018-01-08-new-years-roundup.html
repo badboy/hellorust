@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New Year's Roundup - Hello, Rust!</title>
+<meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust, WebAssembly, wasm">
+<link rel="stylesheet" href="/bootstrap.css">
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet" href="/assets/default.min.css">
+<script src="/assets/highlight.min.js"></script>
+
+  </head>
+
+  <body class="container">
+    <header>
+  <ul class="row menu">
+    <li class="col-xs-12 col-md-12 deprecation-notice">
+        <h2>
+            This site is archived and read-only.
+            <br />
+            Check out the <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a>.
+        </h2>
+    </li>
+    <li class="col-xs-12 col-md-10">
+      <h1><a href="/">Hello, Rust!</a></h1>
+      <h3>Rust for the Web</h3>
+    </li>
+
+    <li class="col-xs-12 col-md-10">
+      <h2><a href="/news/">News</a></h2>
+      <h2><a href="/setup/">Setup</a></h2>
+      <h2><a href="/demos/">Demos</a></h2>
+      <h2><a href="/talks/">Talks</a></h2>
+      <h2><a href="/resources/">Resources</a></h2>
+    </li>
+  </ul>
+</header>
+
+
+    <div class="row code-row">
+      <div class="col-md-12">
+          <article>
+              <h1>New Year's Roundup</h1>
+              <time pubdate="pubdate">Jan 08, 2018</time>
+              - Jan-Erik Rediger
+
+
+              <p>The last post on here was a while back. Since then a lot of things happened in the Rust and WebAssembly world, so here's a quick roundup to get up to speed.</p>
+<h2><a href="https://github.com/DenisKolodin/yew">YEW - a framework for client-side web-apps</a></h2>
+<p>Inspired by Elm and ReactJS it has a MVC approach, a virtual DOM, HTML templates with Rust inside and data conversions built-in.
+And apparently <a href="https://github.com/DenisKolodin/todomvc-perf-comparison">it's fast as well as benchmarks show</a>.</p>
+<h2>Support for Rust/Wasm in Parcel</h2>
+<p>Two weeks ago <a href="https://github.com/parcel-bundler/parcel/pull/312">initial support for Rust and Wasm</a> landed in Parcel, a web application bundler.
+It can automatically (re-)compile your Rust sources when they change and import the resulting Wasm module in your JavaScript code.</p>
+<h2><a href="https://github.com/alexcrichton/wasm-bindgen">wasm-bindgen</a></h2>
+<p>A CLI and Rust dependency that will generate the necessary JavaScript bindings to your Rust code, so you can skip writing most of the boilerplate (boilerplate such as <a href="https://github.com/killercup/wasm-experiments">wasm-experiments</a>).
+It generates TypeScript for now, which gives you proper types on the JavaScript side as well.</p>
+<h2>stdweb and cargo-web</h2>
+<p><a href="https://github.com/koute/stdweb/">stdweb</a>, &quot;a standard library for the client-side Web&quot; gained support for <code>wasm32-unknown-unknown</code> in December,
+including a <code>js!</code> macro to call into JavaScript functions from your Rust code.
+In combination with <a href="https://github.com/koute/cargo-web">cargo-web</a>, a cargo subcommand taking care of the compile step, this allows for powerful new web applications implemented in Rust.
+The above mentioned YEW is built on top of stdweb.</p>
+<h2>More</h2>
+<p>People are playing around with the new small WebAssembly target more and more.</p>
+<ul>
+<li><a href="https://aimlesslygoingforward.com/blog/2017/12/25/dose-response-ported-to-webassembly/">Porting a roguelike game to WebAssembly.</a> - A detailed post on what it took to port the game to the web browser</li>
+<li><a href="https://github.com/gluon-lang/gluon/issues/424">Try to make gluon compile compile to WASM</a> - Gluon is a embeddable language written in Rust</li>
+<li><a href="https://github.com/rust-lang/rust/pull/47102">Implement extensible syscall interface for wasm</a> - An attempt to introduce a syscall interface in order to interact with the the runtime environment</li>
+</ul>
+<p><strong>You did something with Rust and WebAssembly? <a href="https://github.com/badboy/hellorust/issues/new">Let us know!</a></strong></p>
+
+          </article>
+      </div>
+    </div>
+
+    <footer>
+  <hr>
+  <p>
+      This is not an official <a href="https://www.rust-lang.org/">Rust</a> project /
+      <a href="/info/">Info</a> / 
+      <a href="https://github.com/badboy/hellorust">Contribute</a> /
+      <a href="/feed.xml">RSS Feed</a>
+  </p>
+</footer>
+
+  </body>
+</html>

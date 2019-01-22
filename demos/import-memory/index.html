@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo: Import memory - Hello, Rust!</title>
+<meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust, WebAssembly, wasm">
+<link rel="stylesheet" href="/bootstrap.css">
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet" href="/assets/default.min.css">
+<script src="/assets/highlight.min.js"></script>
+
+  </head>
+
+  <body class="container">
+    <header>
+  <ul class="row menu">
+    <li class="col-xs-12 col-md-12 deprecation-notice">
+        <h2>
+            This site is archived and read-only.
+            <br />
+            Check out the <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a>.
+        </h2>
+    </li>
+    <li class="col-xs-12 col-md-10">
+      <h1><a href="/">Hello, Rust!</a></h1>
+      <h3>Rust for the Web</h3>
+    </li>
+
+    <li class="col-xs-12 col-md-10">
+      <h2><a href="/news/">News</a></h2>
+      <h2><a href="/setup/">Setup</a></h2>
+      <h2><a href="/demos/">Demos</a></h2>
+      <h2><a href="/talks/">Talks</a></h2>
+      <h2><a href="/resources/">Resources</a></h2>
+    </li>
+  </ul>
+</header>
+
+
+    <div class="row code-row">
+      <div class="col-md-12">
+        <h2>Import memory buffer</h2>
+
+<input type="text" id="output" readonly>
+
+<script src="/demos/bundle.js"></script>
+<script>
+  window.Module = {}
+
+  const memory = new WebAssembly.Memory({initial: 20});
+  const imports = {
+    env: {
+      memory: memory
+    }
+  };
+  fetchAndInstantiate("./string-passing.wasm", imports)
+    .then(mod => {
+      Module.memory      = memory;
+      Module.alloc       = mod.exports.alloc;
+      Module.dealloc     = mod.exports.dealloc;
+      Module.dealloc_str = mod.exports.dealloc_str;
+      Module.roundtrip   = function(str) {
+        let buf = newString(Module, str);
+        let outptr = mod.exports.roundtrip(buf);
+        let result = copyCStr(Module, outptr);
+        return result;
+      };
+
+      var output = document.getElementById("output");
+      output.value = Module.roundtrip("This string was passed through WebAssembly")
+    });
+</script>
+
+<hr />
+
+<h2>The Code</h2>
+
+<p>
+  <a href="./string-passing.rs">Download string-passing.rs</a>
+  <br />
+  <a href="./string-passing.wat">Download string-passing.wat (WebAssembly text format)</a>
+</p>
+<p>
+  The Rust code for this example does nothing but returning the data passed to it (plus some allocation functions).
+  It uses one special attribute though: 
+
+  <pre><code class="rust">#![wasm_import_memory]</code></pre>
+
+  With this attribute the WebAssembly module will not export its own memory buffer,
+  but instead import the memory from the environment, letting the caller set it up.
+  In the future it will be possible to use a <code>SharedArrayBuffer</code> in order to share memory between multiple modules easily.
+</p>
+
+<p>
+  The code (without allocation functions) is:
+</p>
+
+<pre><code class="rust">#![feature(wasm_import_memory)]
+#![wasm_import_memory]
+
+use std::os::raw::c_char;
+
+#[no_mangle]
+pub extern "C" fn roundtrip(data: *mut c_char) -> *mut c_char {
+    data
+}</code></pre>
+
+<p>
+The calling JavaScript code needs to instantiate a
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Memory"><code>WebAssembly.Memory<code></a> object and pass it on instantiation.
+</p>
+
+<pre><code class="javascript">window.Module = {}
+
+// Initializing the memory with 20 pages (20 * 64KiB = 1.25 MiB)
+const memory = new WebAssembly.Memory({initial: 20});
+const imports = {
+  env: {
+    memory: memory
+  }
+};
+
+// On instantiation we pass the imports object
+fetchAndInstantiate("./string-passing.wasm", imports)
+  .then(mod => {
+    Module.memory      = memory;
+    Module.alloc       = mod.exports.alloc;
+    Module.dealloc     = mod.exports.dealloc;
+    Module.dealloc_str = mod.exports.dealloc_str;
+    Module.roundtrip   = function(str) {
+      let buf = newString(Module, str);
+      let outptr = mod.exports.roundtrip(buf);
+      let result = copyCStr(Module, outptr);
+      return result;
+    };
+
+    var output = document.getElementById("output");
+    output.value = Module.roundtrip("This string was passed through WebAssembly")
+  });
+</code></pre>
+
+      </div>
+    </div>
+
+    <footer>
+  <hr>
+  <p>
+      This is not an official <a href="https://www.rust-lang.org/">Rust</a> project /
+      <a href="/info/">Info</a> / 
+      <a href="https://github.com/badboy/hellorust">Contribute</a> /
+      <a href="/feed.xml">RSS Feed</a>
+  </p>
+</footer>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

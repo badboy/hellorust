@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Hello, Rust!</title><link>https://www.hellorust.com</link><description>Rust for the Web</description><item><title>Site deprecation, check out RustWasm</title><link>https://www.hellorust.com/news/2019-01-22-deprecation.html</link><description><![CDATA[<p>This site hasn't been updated in over a year.
+Since then a lot of stuff happened in Rust and the WebAssembly world.</p>
+<p>The <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a> was founded and now provides a lot of tooling, documentation, tutorials and other material.
+For a complete introduction to Rust and WebAssembly check out the <a href="https://rustwasm.github.io/book/">Rust 🦀 and WebAssembly 🕸 book</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/2019-01-22-deprecation.html</guid><pubDate>Tue, 22 Jan 2019 14:50:00 +0100</pubDate></item><item><title>More News on WebAssembly</title><link>https://www.hellorust.com/news/2018-01-19-wasm-news.html</link><description><![CDATA[<p>Another week has passed and work on WebAssembly, documentation, tooling and usage is not stopping.
+Here's a recap of what happened recently:</p>
+<h3><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/">Oxidizing Source Maps with Rust and WebAssembly</a></h3>
+<p><a href="http://fitzgeraldnick.com/">Nick Fitzgerald</a> and <a href="http://tromey.com/">Tom Tromey</a> rewrote one of the most performance-sensitive code paths for source map parsing,
+that's used in JavaScript debuggers and other applications.
+Using Rust compiled to WebAssembly they were able to run more than 5 times faster for real-world use cases.
+All work is based on the <code>wasm32-unknown-unkown</code> target of Rust.
+Along the way they discovered a few shortcomings of this target and some bugs as well.</p>
+<h3><a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">Making WebAssembly even faster: Firefox’s new streaming and tiering compiler</a></h3>
+<p><a href="https://code-cartoons.com">Lin Clark</a> wrote another illustrated post on WebAssembly, this time introducing the new streaming compilation feature coming to Firefox 58.
+With this, WebAssembly can be compiled while it is streamed over the network and it will be ready to execute as soon as all the code is there.
+In combination with the baseline compiler in Firefox this brings another boost to running WebAssembly.</p>
+<h3>Tooling</h3>
+<p>Useful new tools came out of Nick's and Tom's work as well.
+One of these is <a href="https://github.com/fitzgen/wasm-snip"><strong>wasm-snip</strong></a>, a tool to replace unused functions, that neither the compiler nor wasm-gc were able to remove with no-ops.
+This should get rid of some of the code bloat still in the module.
+Once we get a proper linker and improved compiler this will hopefully be unnecessary.</p>
+<p><a href="https://github.com/emk">emk</a> started a new tool to analyze size of WebAssembly modules more easily: <a href="https://github.com/emk/wasm-bloat"><strong>wasm-bloat</strong></a>.</p>
+<p>If you're compiling to WebAssembly also take a look at <a href="https://github.com/WebAssembly/binaryen">binaryen</a>,
+which has tools like <strong>wasm-opt</strong> for even more optimization.</p>
+<h3><a href="https://github.com/aturon/rust-wasm/">A point of coordination for all things rust+wasm</a></h3>
+<p><a href="https://github.com/aturon">Aaron</a> started a new repository to coordinate the development of Rust and its Wasm backend.
+With already <a href="https://github.com/aturon/rust-wasm/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">two dozen issues</a> opened, there's a lot going on. Jump into the discussion and shape how Rust and WebAssembly work together.</p>
+<h3>More examples</h3>
+<p><a href="https://github.com/danielpclark">Daniel</a> pointed me to two new demos of Rust and WebAssembly.</p>
+<p><a href="https://github.com/jakedeichert/wasm-astar"><strong>wasm-astar</strong></a> is a A* Pathfinding example, showed on an interactive map and some writing about Jake's experience working on it.</p>
+<p><a href="https://github.com/koute">Koute</a> wrote <a href="https://github.com/koute/pinky"><strong>pinky</strong></a>, a fully working NES emulator written in Rust.
+Most excitingly there's also a Web frontend, running WebAssembly, to play your favourite game right in the browser: <a href="https://github.com/koute/pinky/tree/master/pinky-web"><strong>pinky-web</strong></a>.</p>
+<hr />
+<p>Do <strong>you</strong> have another cool thing showing Rust &amp; WebAssembly?
+Let me know <a href="https://github.com/badboy/hellorust/issues/new">by opening an issue</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/2018-01-19-wasm-news.html</guid><pubDate>Fri, 19 Jan 2018 13:00:00 +0100</pubDate></item><item><title>Turtles on Wasm</title><link>https://www.hellorust.com/news/2018-01-09-turtles-on-wasm.html</link><description><![CDATA[<p>Marshall Pierce recently <a href="https://github.com/sunjay/turtle/pull/53">added WebAssembly support</a> to the Turtle application.
+<a href="http://turtle.rs/">Turtle</a> is a programming environment allowing to create animated drawings with a handful of simple commands.
+It's the perfect tool to teach programming and foster creativity. Bringing it to the web makes it even more accessible.
+He wrote down his approach for adding Wasm support:</p>
+<h2><a href="https://varblog.org/blog/2018/01/08/rust-and-webassembly-with-turtle/">Rust and WebAssembly With Turtle</a></h2>
+<p>With a bit more effort it might be possible to provide a <a href="https://play.rust-lang.org/">Playground</a>-like environment to run and code in the browser.</p>
+]]></description><guid>https://www.hellorust.com/news/2018-01-09-turtles-on-wasm.html</guid><pubDate>Tue,  9 Jan 2018 16:23:00 +0100</pubDate></item><item><title>New Year&apos;s Roundup</title><link>https://www.hellorust.com/news/2018-01-08-new-years-roundup.html</link><description><![CDATA[<p>The last post on here was a while back. Since then a lot of things happened in the Rust and WebAssembly world, so here's a quick roundup to get up to speed.</p>
+<h2><a href="https://github.com/DenisKolodin/yew">YEW - a framework for client-side web-apps</a></h2>
+<p>Inspired by Elm and ReactJS it has a MVC approach, a virtual DOM, HTML templates with Rust inside and data conversions built-in.
+And apparently <a href="https://github.com/DenisKolodin/todomvc-perf-comparison">it's fast as well as benchmarks show</a>.</p>
+<h2>Support for Rust/Wasm in Parcel</h2>
+<p>Two weeks ago <a href="https://github.com/parcel-bundler/parcel/pull/312">initial support for Rust and Wasm</a> landed in Parcel, a web application bundler.
+It can automatically (re-)compile your Rust sources when they change and import the resulting Wasm module in your JavaScript code.</p>
+<h2><a href="https://github.com/alexcrichton/wasm-bindgen">wasm-bindgen</a></h2>
+<p>A CLI and Rust dependency that will generate the necessary JavaScript bindings to your Rust code, so you can skip writing most of the boilerplate (boilerplate such as <a href="https://github.com/killercup/wasm-experiments">wasm-experiments</a>).
+It generates TypeScript for now, which gives you proper types on the JavaScript side as well.</p>
+<h2>stdweb and cargo-web</h2>
+<p><a href="https://github.com/koute/stdweb/">stdweb</a>, &quot;a standard library for the client-side Web&quot; gained support for <code>wasm32-unknown-unknown</code> in December,
+including a <code>js!</code> macro to call into JavaScript functions from your Rust code.
+In combination with <a href="https://github.com/koute/cargo-web">cargo-web</a>, a cargo subcommand taking care of the compile step, this allows for powerful new web applications implemented in Rust.
+The above mentioned YEW is built on top of stdweb.</p>
+<h2>More</h2>
+<p>People are playing around with the new small WebAssembly target more and more.</p>
+<ul>
+<li><a href="https://aimlesslygoingforward.com/blog/2017/12/25/dose-response-ported-to-webassembly/">Porting a roguelike game to WebAssembly.</a> - A detailed post on what it took to port the game to the web browser</li>
+<li><a href="https://github.com/gluon-lang/gluon/issues/424">Try to make gluon compile compile to WASM</a> - Gluon is a embeddable language written in Rust</li>
+<li><a href="https://github.com/rust-lang/rust/pull/47102">Implement extensible syscall interface for wasm</a> - An attempt to introduce a syscall interface in order to interact with the the runtime environment</li>
+</ul>
+<p><strong>You did something with Rust and WebAssembly? <a href="https://github.com/badboy/hellorust/issues/new">Let us know!</a></strong></p>
+]]></description><guid>https://www.hellorust.com/news/2018-01-08-new-years-roundup.html</guid><pubDate>Mon,  8 Jan 2018 11:45:00 +0100</pubDate></item><item><title>Link: Wasm Rust CHIP8 - A CHIP8 emulator written in Rust running Wasm</title><link>https://www.hellorust.com/news/2017-12-14-chip8-emulator-on-wasm.html</link><description><![CDATA[<p><a href="http://blog.scottlogic.com/ceberhardt/">Colin Eberhardt</a> has written a <a href="https://colineberhardt.github.io/wasm-rust-chip8/web/">CHIP-8</a> emulator in Rust and targeted it for WebAssembly.</p>
+<p>Read how he did it:</p>
+<h2><a href="http://blog.scottlogic.com/2017/12/13/chip8-emulator-webassembly-rust.html">Writing a CHIP-8 emulator with Rust and WebAssembly</a></h2>
+<p>The post contains a detailed break down of how to write an emulator, along with the challenges of sharing data between Rust and WebAssembly.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-14-chip8-emulator-on-wasm.html</guid><pubDate>Thu, 14 Dec 2017 17:22:00 +0100</pubDate></item><item><title>Importing memory</title><link>https://www.hellorust.com/news/2017-12-07-import-memory.html</link><description><![CDATA[<p>I added a new small example demonstrating how to instantiate a memory buffer from the JavaScript side
+and import it into the WebAssembly module.</p>
+<h2><a href="/demos/import-memory/index.html">Import memory</a></h2>
+<p>I also added another canvas demo showing the <a href="/demos/feistel/index.html">FizzleFade effect with a Feistel network</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-07-import-memory.html</guid><pubDate>Thu,  7 Dec 2017 15:32:00 +0100</pubDate></item><item><title>Link: Rust and the case for WebAssembly in 2018</title><link>https://www.hellorust.com/news/2017-12-06-the-case-for-wasm.html</link><description><![CDATA[<p><a href="https://mgattozzi.com/about">Michael Gattozzi</a> discusses WebAssembly and what it can mean for Rust.
+He proposes some possible short-term, medium-term and long-term goals for the Rust 2018 roadmap.</p>
+<h2><a href="https://mgattozzi.com/rust-wasm">Rust and the case for WebAssembly in 2018</a></h2>
+<p>The future of Rust &amp; WebAssembly definitely needs a lot of work, but we're off to a good start to make Rust the language of choice here.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-06-the-case-for-wasm.html</guid><pubDate>Wed,  6 Dec 2017 10:55:00 +0100</pubDate></item><item><title>Link: Semver on the web with Rust and WebAssembly</title><link>https://www.hellorust.com/news/2017-12-05-semver-with-rust-and-wasm.html</link><description><![CDATA[<p><a href="https://github.com/steveklabnik/">Steve Klabnik</a> built a Rust-powered minimal clone of the <a href="https://semver.npmjs.com/">npm semver calculator</a> using Rust and WebAssembly.</p>
+<h2><a href="https://www.steveklabnik.com/wasm/demos/semver.html">Semver on the web with Rust and WebAssembly</a></h2>
+<p>It has less features, but otherwise fully working.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-05-semver-with-rust-and-wasm.html</guid><pubDate>Tue,  5 Dec 2017 14:22:00 +0100</pubDate></item><item><title>Link: Writing a Brainfuck Interpreter in Rust (and WebAssebmly)</title><link>https://www.hellorust.com/news/2017-12-04-brainfuck-interpreter.html</link><description><![CDATA[<p><a href="https://shr.ite.sh/about">Shritesh Bhattarai</a> wrote a blog post about a simple Brainfuck interpreter written in Rust, compiled to WebAssembly:</p>
+<h2><a href="https://shr.ite.sh/brainfuck-rust-wasm.html">Writing a Brainfuck Interpreter in Rust (and WebAssembly)</a></h2>
+<p>The source is available on GitHub: <a href="https://github.com/shritesh/brainfuck-rs-wasm">github.com/shritesh/brainfuck-rs-wasm</a> and a live version <a href="http://shritesh.github.io/brainfuck-rs-wasm/">available online</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-04-brainfuck-interpreter.html</guid><pubDate>Mon,  4 Dec 2017 12:18:00 +0100</pubDate></item><item><title>Link: Rocket - A Rust game running on Wasm</title><link>https://www.hellorust.com/news/2017-12-04-rocket-a-game-on-wasm.html</link><description><![CDATA[<p><a href="https://aochagavia.github.io/about/">Adolfo Ochagavía</a> adapted his game <a href="https://github.com/aochagavia/rocket">Rocket</a> to WebAssembly to run in the browser.</p>
+<p>Read how he did it:</p>
+<h2><a href="https://aochagavia.github.io/blog/rocket---a-rust-game-running-on-wasm/">Rocket - A Rust game running on WASM</a></h2>
+<p>The post includes the game running right there in the browser.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-04-rocket-a-game-on-wasm.html</guid><pubDate>Mon,  4 Dec 2017 09:49:00 +0100</pubDate></item><item><title>Writing to Canvas</title><link>https://www.hellorust.com/news/2017-12-03-canvas.html</link><description><![CDATA[<p><a href="https://github.com/Geal">Geoffroy</a> added a new example: Generating image data displayed on a canvas.</p>
+<h2><a href="/demos/canvas/index.html">Canvas example</a></h2>
+<p><em>Caution: The example will display a flickering image after you press the start button.</em></p>
+<p>See the included comments and documentation on how it works.</p>
+]]></description><guid>https://www.hellorust.com/news/2017-12-03-canvas.html</guid><pubDate>Sun,  3 Dec 2017 13:06:00 +0100</pubDate></item><item><title>Factorial with 64-bit integers</title><link>https://www.hellorust.com/news/big-factorial.html</link><description><![CDATA[<p>I rewrote the <a href="/demos/factorial/index.html">factorial</a> example to use 64-bit integers
+and do the formatting in Rust (and thus WebAssembly), so larger values are displayed correctly.</p>
+<h2><a href="/demos/factorial/index.html">Factorial example</a></h2>
+<p>(This also adds proper deallocation of the formatted strings)</p>
+]]></description><guid>https://www.hellorust.com/news/big-factorial.html</guid><pubDate>Tue, 28 Nov 2017 12:04:00 +0100</pubDate></item><item><title>Minimal Rust &amp; WebAssembly example</title><link>https://www.hellorust.com/news/minimal-example.html</link><description><![CDATA[<p>You can now find a minimal working example for compiling Rust to WebAssembly
+and runnig it in the browser in the demos section:</p>
+<h2><a href="/demos/add/index.html">Minimal working example</a></h2>
+<p>The resulting WebAssembly modules is only 108 bytes big. Consider <em>that</em> minimal.</p>
+]]></description><guid>https://www.hellorust.com/news/minimal-example.html</guid><pubDate>Sun, 26 Nov 2017 16:25:00 +0100</pubDate></item><item><title>wasm32-unknown-unknown landed &amp; enabled</title><link>https://www.hellorust.com/news/native-wasm-target.html</link><description><![CDATA[<p>Yesterday the
+<a href="https://github.com/rust-lang/rust/pull/46115">Pull Request 46115: &quot;rustbuild: Enable WebAssembly backend by default&quot;</a> was merged into Rust master.
+With the Nightly build from that night, the <code>wasm32-unknown-unknown</code> target is natively available.</p>
+<p>Once you install that nightly (or any later one from now on), you can compile to WebAssembly without additional tools:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustup update
+</span><span style="background-color:#2b303b;color:#c0c5ce;">rustup target add wasm32-unknown-unknown --toolchain nightly
+</span><span style="background-color:#2b303b;color:#c0c5ce;">rustc +nightly --target wasm32-unknown-unknown -O hello.rs
+</span></pre>
+<p>Support &amp; documentation is still a bit limited, but we're working to expand in this area.
+The Rust compiler also does not have a proper linker just now, so final WebAssembly modules will be quite big.
+Alex wrote a small tool to reduce the size:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">cargo install --git https://github.com/alexcrichton/wasm-gc
+</span><span style="background-color:#2b303b;color:#c0c5ce;">wasm-gc hello.wasm small-hello.wasm
+</span></pre>
+<p>You can find the full instruction <a href="/setup/wasm-target">in the <code>wasm-32-unknown-unknown</code> setup guide</a>.</p>
+<p>If you want to contribute with examples, documentation, articles or other resources open an issue or pull request on <a href="https://github.com/badboy/hellorust">github.com/badboy/hellorust</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/native-wasm-target.html</guid><pubDate>Sun, 26 Nov 2017 12:24:00 +0100</pubDate></item><item><title>Hello, Rust! Hello, WebAssembly!</title><link>https://www.hellorust.com/news/post-1.html</link><description><![CDATA[<p><a href="/">hellorust.com</a> is live!</p>
+<p>This site will collect resources, guides, articles and links around Rust &amp; WebAssembly.
+If you want to help or have more resources we should add, <a href="https://github.com/badboy/hellorust/issues/new">open an issue</a> or send a Pull Request to <a href="https://github.com/badboy/hellorust">github.com/badboy/hellorust</a>.</p>
+<p>To get started, head over to the <a href="/setup/">Setup section</a> or take a look at <a href="/demos/">some example code</a>.</p>
+]]></description><guid>https://www.hellorust.com/news/post-1.html</guid><pubDate>Sat, 18 Nov 2017 15:10:00 +0100</pubDate></item></channel></rss>

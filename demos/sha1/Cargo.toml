@@ -1,0 +1,14 @@
+[package]
+name = "sha1-digest"
+version = "0.1.0"
+authors = ["Jan-Erik Rediger <janerik@fnordig.de>"]
+
+[lib]
+path = "sha1-digest.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+sha1 = "0.2.0"
+
+[profile.release]
+opt-level = "s"

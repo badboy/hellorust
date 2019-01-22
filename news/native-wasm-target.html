@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wasm32-unknown-unknown landed & enabled - Hello, Rust!</title>
+<meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust, WebAssembly, wasm">
+<link rel="stylesheet" href="/bootstrap.css">
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet" href="/assets/default.min.css">
+<script src="/assets/highlight.min.js"></script>
+
+  </head>
+
+  <body class="container">
+    <header>
+  <ul class="row menu">
+    <li class="col-xs-12 col-md-12 deprecation-notice">
+        <h2>
+            This site is archived and read-only.
+            <br />
+            Check out the <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a>.
+        </h2>
+    </li>
+    <li class="col-xs-12 col-md-10">
+      <h1><a href="/">Hello, Rust!</a></h1>
+      <h3>Rust for the Web</h3>
+    </li>
+
+    <li class="col-xs-12 col-md-10">
+      <h2><a href="/news/">News</a></h2>
+      <h2><a href="/setup/">Setup</a></h2>
+      <h2><a href="/demos/">Demos</a></h2>
+      <h2><a href="/talks/">Talks</a></h2>
+      <h2><a href="/resources/">Resources</a></h2>
+    </li>
+  </ul>
+</header>
+
+
+    <div class="row code-row">
+      <div class="col-md-12">
+          <article>
+              <h1>wasm32-unknown-unknown landed & enabled</h1>
+              <time pubdate="pubdate">Nov 26, 2017</time>
+              - Jan-Erik Rediger
+
+
+              <p>Yesterday the
+<a href="https://github.com/rust-lang/rust/pull/46115">Pull Request 46115: &quot;rustbuild: Enable WebAssembly backend by default&quot;</a> was merged into Rust master.
+With the Nightly build from that night, the <code>wasm32-unknown-unknown</code> target is natively available.</p>
+<p>Once you install that nightly (or any later one from now on), you can compile to WebAssembly without additional tools:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">rustup update
+</span><span style="background-color:#2b303b;color:#c0c5ce;">rustup target add wasm32-unknown-unknown --toolchain nightly
+</span><span style="background-color:#2b303b;color:#c0c5ce;">rustc +nightly --target wasm32-unknown-unknown -O hello.rs
+</span></pre>
+<p>Support &amp; documentation is still a bit limited, but we're working to expand in this area.
+The Rust compiler also does not have a proper linker just now, so final WebAssembly modules will be quite big.
+Alex wrote a small tool to reduce the size:</p>
+<pre style="background-color:#2b303b;">
+<span style="background-color:#2b303b;color:#c0c5ce;">cargo install --git https://github.com/alexcrichton/wasm-gc
+</span><span style="background-color:#2b303b;color:#c0c5ce;">wasm-gc hello.wasm small-hello.wasm
+</span></pre>
+<p>You can find the full instruction <a href="/setup/wasm-target">in the <code>wasm-32-unknown-unknown</code> setup guide</a>.</p>
+<p>If you want to contribute with examples, documentation, articles or other resources open an issue or pull request on <a href="https://github.com/badboy/hellorust">github.com/badboy/hellorust</a>.</p>
+
+          </article>
+      </div>
+    </div>
+
+    <footer>
+  <hr>
+  <p>
+      This is not an official <a href="https://www.rust-lang.org/">Rust</a> project /
+      <a href="/info/">Info</a> / 
+      <a href="https://github.com/badboy/hellorust">Contribute</a> /
+      <a href="/feed.xml">RSS Feed</a>
+  </p>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>More News on WebAssembly - Hello, Rust!</title>
+<meta name="keywords" content="Rust, Rust programming language, rustlang, rust-lang, Mozilla Rust, WebAssembly, wasm">
+<link rel="stylesheet" href="/bootstrap.css">
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet" href="/assets/default.min.css">
+<script src="/assets/highlight.min.js"></script>
+
+  </head>
+
+  <body class="container">
+    <header>
+  <ul class="row menu">
+    <li class="col-xs-12 col-md-12 deprecation-notice">
+        <h2>
+            This site is archived and read-only.
+            <br />
+            Check out the <a href="https://rustwasm.github.io/">Rust and WebAssembly working group</a>.
+        </h2>
+    </li>
+    <li class="col-xs-12 col-md-10">
+      <h1><a href="/">Hello, Rust!</a></h1>
+      <h3>Rust for the Web</h3>
+    </li>
+
+    <li class="col-xs-12 col-md-10">
+      <h2><a href="/news/">News</a></h2>
+      <h2><a href="/setup/">Setup</a></h2>
+      <h2><a href="/demos/">Demos</a></h2>
+      <h2><a href="/talks/">Talks</a></h2>
+      <h2><a href="/resources/">Resources</a></h2>
+    </li>
+  </ul>
+</header>
+
+
+    <div class="row code-row">
+      <div class="col-md-12">
+          <article>
+              <h1>More News on WebAssembly</h1>
+              <time pubdate="pubdate">Jan 19, 2018</time>
+              - Jan-Erik Rediger
+
+
+              <p>Another week has passed and work on WebAssembly, documentation, tooling and usage is not stopping.
+Here's a recap of what happened recently:</p>
+<h3><a href="https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/">Oxidizing Source Maps with Rust and WebAssembly</a></h3>
+<p><a href="http://fitzgeraldnick.com/">Nick Fitzgerald</a> and <a href="http://tromey.com/">Tom Tromey</a> rewrote one of the most performance-sensitive code paths for source map parsing,
+that's used in JavaScript debuggers and other applications.
+Using Rust compiled to WebAssembly they were able to run more than 5 times faster for real-world use cases.
+All work is based on the <code>wasm32-unknown-unkown</code> target of Rust.
+Along the way they discovered a few shortcomings of this target and some bugs as well.</p>
+<h3><a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">Making WebAssembly even faster: Firefox’s new streaming and tiering compiler</a></h3>
+<p><a href="https://code-cartoons.com">Lin Clark</a> wrote another illustrated post on WebAssembly, this time introducing the new streaming compilation feature coming to Firefox 58.
+With this, WebAssembly can be compiled while it is streamed over the network and it will be ready to execute as soon as all the code is there.
+In combination with the baseline compiler in Firefox this brings another boost to running WebAssembly.</p>
+<h3>Tooling</h3>
+<p>Useful new tools came out of Nick's and Tom's work as well.
+One of these is <a href="https://github.com/fitzgen/wasm-snip"><strong>wasm-snip</strong></a>, a tool to replace unused functions, that neither the compiler nor wasm-gc were able to remove with no-ops.
+This should get rid of some of the code bloat still in the module.
+Once we get a proper linker and improved compiler this will hopefully be unnecessary.</p>
+<p><a href="https://github.com/emk">emk</a> started a new tool to analyze size of WebAssembly modules more easily: <a href="https://github.com/emk/wasm-bloat"><strong>wasm-bloat</strong></a>.</p>
+<p>If you're compiling to WebAssembly also take a look at <a href="https://github.com/WebAssembly/binaryen">binaryen</a>,
+which has tools like <strong>wasm-opt</strong> for even more optimization.</p>
+<h3><a href="https://github.com/aturon/rust-wasm/">A point of coordination for all things rust+wasm</a></h3>
+<p><a href="https://github.com/aturon">Aaron</a> started a new repository to coordinate the development of Rust and its Wasm backend.
+With already <a href="https://github.com/aturon/rust-wasm/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc">two dozen issues</a> opened, there's a lot going on. Jump into the discussion and shape how Rust and WebAssembly work together.</p>
+<h3>More examples</h3>
+<p><a href="https://github.com/danielpclark">Daniel</a> pointed me to two new demos of Rust and WebAssembly.</p>
+<p><a href="https://github.com/jakedeichert/wasm-astar"><strong>wasm-astar</strong></a> is a A* Pathfinding example, showed on an interactive map and some writing about Jake's experience working on it.</p>
+<p><a href="https://github.com/koute">Koute</a> wrote <a href="https://github.com/koute/pinky"><strong>pinky</strong></a>, a fully working NES emulator written in Rust.
+Most excitingly there's also a Web frontend, running WebAssembly, to play your favourite game right in the browser: <a href="https://github.com/koute/pinky/tree/master/pinky-web"><strong>pinky-web</strong></a>.</p>
+<hr />
+<p>Do <strong>you</strong> have another cool thing showing Rust &amp; WebAssembly?
+Let me know <a href="https://github.com/badboy/hellorust/issues/new">by opening an issue</a>.</p>
+
+          </article>
+      </div>
+    </div>
+
+    <footer>
+  <hr>
+  <p>
+      This is not an official <a href="https://www.rust-lang.org/">Rust</a> project /
+      <a href="/info/">Info</a> / 
+      <a href="https://github.com/badboy/hellorust">Contribute</a> /
+      <a href="/feed.xml">RSS Feed</a>
+  </p>
+</footer>
+
+  </body>
+</html>
