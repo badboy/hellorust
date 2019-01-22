@@ -1,3 +1,11 @@
+---
+This site is unmaintained and read-only.
+
+The [Rust and WebAssembly working group](https://rustwasm.github.io/) now provides a lot of tooling, documentation, tutorials and other material.
+For a complete introduction to Rust and WebAssembly check out the [Rust 🦀 and WebAssembly 🕸 book](https://rustwasm.github.io/book/).
+---
+
+
 # [Hello, Rust!](https://www.hellorust.com/)
 
 ### A collection of resources, articles, examples and links regarding Rust & WebAssembly
